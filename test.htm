@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PNR Generator (QA Test Only)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      width: 360px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 16px;
+      width: 100%;
+      padding: 10px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .result {
+      margin-top: 16px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .pnr {
+      font-family: monospace;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+
+    .footer {
+      font-size: 11px;
+      color: #777;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>PNR Generator</h1>
+    <div class="note">
+      QA / Demo only — Generated PNRs are simulated and not valid for real airline systems.
+    </div>
+
+    <label>Passenger Name</label>
+    <input id="name" placeholder="John Demo" />
+
+    <label>From</label>
+    <input id="from" placeholder="DEL" />
+
+    <label>To</label>
+    <input id="to" placeholder="LHR" />
+
+    <label>Travel Date</label>
+    <input id="date" type="date" />
+
+    <button onclick="generatePNR()">Generate Test PNR</button>
+
+    <div id="output" class="result" style="display:none;">
+      <div><strong>Name:</strong> <span id="outName"></span></div>
+      <div><strong>Route:</strong> <span id="outRoute"></span></div>
+      <div><strong>Date:</strong> <span id="outDate"></span></div>
+      <div class="pnr">PNR: <span id="outPNR"></span></div>
+      <div class="footer">SIMULATED / NON‑PRODUCTION</div>
+    </div>
+  </div>
+
+  <script>
+    function generatePNR() {
+      const name = document.getElementById("name").value;
+      const from = document.getElementById("from").value;
+      const to = document.getElementById("to").value;
+      const date = document.getElementById("date").value;
+
+      if (!name || !from || !to || !date) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let pnr = "";
+      for (let i = 0; i < 6; i++) {
+        pnr += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+
+      document.getElementById("outName").innerText = name;
+      document.getElementById("outRoute").innerText = from + " → " + to;
+      document.getElementById("outDate").innerText = date;
+      document.getElementById("outPNR").innerText = pnr;
+      document.getElementById("output").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
