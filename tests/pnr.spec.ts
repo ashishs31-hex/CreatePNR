@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('open URL', async ({ page }) => {
-    await page.goto('file:///C:/Users/2000178773/OneDrive%20-%20Hexaware%20Technologies/Desktop/test.htm');
+    await page.goto('file:///../test.htm');
     await page.fill('input[id="name"]', 'Ashish');
     await expect(page.locator('input[id="name"]')).toHaveValue('Ashish');
     await page.fill('input[id="from"]', 'toronto');
