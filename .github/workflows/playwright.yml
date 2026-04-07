@@ -6,6 +6,13 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+env:  
+  name: ${{ github.event.client_payload.name }}
+  source: ${{ github.event.client_payload.source }}
+  destination: ${{ github.event.client_payload.destination }}
+  departure_date: ${{ github.event.client_payload.departure_date }}
+  passenger_count: ${{ github.event.client_payload.passenger_count }}
+
 jobs:
   test:
     timeout-minutes: 60
