@@ -8,13 +8,11 @@ test('open URL', async ({ page }) => {
     const departureDate = process.env.DEPARTURE_DATE!;
     const passengerCount = Number(process.env.PASSENGER_COUNT);
 
-    console.log({ name, source, destination, departureDate, passengerCount });
-
     await page.goto('${WORKSPACE}/test.htm');
-    await page.fill('input[id="name"]', 'Ashish');
-    await expect(page.locator('input[id="name"]')).toHaveValue('Ashish');
-    await page.fill('input[id="from"]', 'toronto');
-    await expect(page.locator('input[id="from"]')).toHaveValue('toronto');
+    await page.fill('input[id="name"]', name);
+    await expect(page.locator('input[id="name"]')).toHaveValue(name);
+    await page.fill('input[id="from"]', source);
+    await expect(page.locator('input[id="from"]')).toHaveValue(source);
     await page.fill('input[id="to"]', 'delhi');
     await expect(page.locator('input[id="to"]')).toHaveValue('delhi');
     await page.fill('input[id="date"]', '2026-12-11');
