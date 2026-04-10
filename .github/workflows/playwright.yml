@@ -1,12 +1,14 @@
 name: Playwright Tests
-on:   
+
+on:
   repository_dispatch:
     types: [trigger-from-power-automate]
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
-env:  
+    branches: [main, master]
+
+env:
   name: ${{ github.event.client_payload.name }}
   source: ${{ github.event.client_payload.source }}
   destination: ${{ github.event.client_payload.destination }}
@@ -17,29 +19,34 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    
-     - name: Use env vars      
-       run: |
-        echo "Name: $name"
-        echo "From: $source"
-        echo "To: $destination"
-        echo "Date: $departure_date"
-        echo "Passengers: $passenger_count"
 
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Use env vars
+        run: |
+          echo "Name: $name"
+          echo "From: $source"
+          echo "To: $destination"
+          echo "Date: $departure_date"
+          echo "Passengers: $passenger_count"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
