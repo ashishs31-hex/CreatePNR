@@ -11,10 +11,10 @@ test('open URL', async ({ page }) => {
     
     const filePath = path.resolve(__dirname, '..', 'test.htm');
     await page.goto(`file://${filePath}`);
-    await page.fill('input[id="name"]', "Ashish");
-    await expect(page.locator('input[id="name"]')).toHaveValue("Ashish");
-    await page.fill('input[id="from"]', "toronto");
-    await expect(page.locator('input[id="from"]')).toHaveValue("toronto");
+    await page.fill('input[id="name"]', name);
+    await expect(page.locator('input[id="name"]')).toHaveValue(name);
+    await page.fill('input[id="from"]', source);
+    await expect(page.locator('input[id="from"]')).toHaveValue(source);
     await page.fill('input[id="to"]', 'delhi');
     await expect(page.locator('input[id="to"]')).toHaveValue('delhi');
     await page.fill('input[id="date"]', '2026-12-11');
