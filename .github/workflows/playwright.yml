@@ -8,32 +8,35 @@ on:
   pull_request:
     branches: [main, master]
 
-env:
-  name: ${{ github.event.client_payload.name }}
-  source: ${{ github.event.client_payload.source }}
-  destination: ${{ github.event.client_payload.destination }}
-  departure_date: ${{ github.event.client_payload.departure_date }}
-  passenger_count: ${{ github.event.client_payload.passenger_count }}
-
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      NAME: ${{ github.event.client_payload.name }}
+      SOURCE: ${{ github.event.client_payload.source }}
+      DESTINATION: ${{ github.event.client_payload.destination }}
+      DEPARTURE_DATE: ${{ github.event.client_payload.departure_date }}
+      PASSENGER_COUNT: ${{ github.event.client_payload.passenger_count }}
 
     steps:
+      - name: Debug client payload
+        run: echo '${{ toJson(github.event.client_payload) }}'
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: Use env vars
+      - name: Print received data
         run: |
-          echo "Name: $name"
-          echo "From: $source"
-          echo "To: $destination"
-          echo "Date: $departure_date"
-          echo "Passengers: $passenger_count"
+          echo "Name: $NAME"
+          echo "From: $SOURCE"
+          echo "To: $DESTINATION"
+          echo "Date: $DEPARTURE_DATE"
+          echo "Passengers: $PASSENGER_COUNT"
 
       - name: Install dependencies
         run: npm ci
