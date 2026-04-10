@@ -22,6 +22,15 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+    
+     - name: Use env vars      
+       run: |
+        echo "Name: $name"
+        echo "From: $source"
+        echo "To: $destination"
+        echo "Date: $departure_date"
+        echo "Passengers: $passenger_count"
+
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
